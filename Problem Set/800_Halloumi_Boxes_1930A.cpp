@@ -3,18 +3,18 @@
 using namespace std;
 
 void solve(){
-    int testcases;
+    long long testcases;
     cin >> testcases;
 
     while (testcases--)
     {
         /* code */
-        int n, k;
+        long long n, k;
         cin>> n >> k;
 
-        vector<int> array(n);
+        vector<long long> array(n);
 
-        for(int i = 0; i < n; i++){
+        for(long long i = 0; i < n; i++){
             cin >> array[i];
         }
 
@@ -28,6 +28,9 @@ void solve(){
 }
 
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     solve();
     return 0;
 }
