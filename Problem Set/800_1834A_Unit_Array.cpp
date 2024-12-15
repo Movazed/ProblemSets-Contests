@@ -14,13 +14,10 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
-#define all(a) (a).begin(), (a).end()
-
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -28,7 +25,11 @@ const ll INF = 1e9;
 const ld EPS = 1e-9;
 const int MAX_FACT = 1e5 + 5;  // Maximum size for factorials
 int fact[MAX_FACT], ifact[MAX_FACT];
-
+#define len(x) int((x).size())
+#define pb push_back
+#define all(n) n.begin(),n.end()
+#define rall(n) n.rbegin(),n.rend()
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 // -------------------------<RNG>------------------------- 
 // RANDOM NUMBER GENERATOR
 mt19937 RNG(chrono::steady_clock::now().time_since_epoch().count());  
@@ -152,30 +153,36 @@ template <typename T> inline T CylinderR(T radius, T height)
 template <typename T> inline T Cone (T radius,T base, T height)
 {return (1/3)*PI*radius*radius*height;} 
 /****************** Geometry end *****************/ 
-#define len(x) int((x).size())
-#define pb push_back
-#define rall(n) n.rbegin(),n.rend()
-
-// Constants
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
 // Helper Functions
 bool odd(ll num) { return ((num & 1) == 1); }
 bool even(ll num) { return ((num & 1) == 0); }
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
-
+#include<cstdio>
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
 }
 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-    precompute_factorials(); 
-    int tc = 1;
-    cin >> tc;
-    for (int t = 1; t <= tc; t++) {
-        solve();
+int32_t main(){
+
+    long t; scanf("%ld", &t); 
+    while(t--){
+        long n; scanf("%ld", &n);
+        long pos(0), neg(0);
+        for(long p = 0; p < n; p++){
+            int x; scanf("%d", &x);
+            pos += (x > 0);
+            neg += (x < 0);
+        }
+
+        long move(0);
+        if(pos < neg){
+            move = (neg - pos + 1) / 2; 
+            pos += move; neg -= move;
+        }
+        if(neg % 2){++move;}
+
+        printf("%ld\n", move);
     }
+
 }

@@ -167,6 +167,31 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        ll n;
+        cin >> n;
+
+        vector<int> ar(n);
+        
+        for (int i = 0; i < n; i++)
+        {
+            cin >> ar[i];
+        }
+
+        bool yes = false;
+
+        for (ll i = 0; i < n; i++)
+        {
+            for(ll j = i; j < n; j++){
+                if(gcd(ar[i], ar[j]) <= 2){
+                    yes = true;
+                    break;
+                }
+            }
+        }
+        if(yes)cout<<"Yes"<<endl;
+        else cout << "No" <<endl;
+        
+        
 }
 
 int main() {

@@ -152,21 +152,53 @@ template <typename T> inline T CylinderR(T radius, T height)
 template <typename T> inline T Cone (T radius,T base, T height)
 {return (1/3)*PI*radius*radius*height;} 
 /****************** Geometry end *****************/ 
-#define len(x) int((x).size())
-#define pb push_back
-#define rall(n) n.rbegin(),n.rend()
 
-// Constants
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+void solve()
+{
+		int n,k,x;
+		cin>>n>>k>>x;
+		
+		if(k==1){
+			cout<<"NO"<<endl;
+		 
+		} 
+		else{
+			if(x!=1){
+				cout<<"YES"<<endl;
+				cout<<n<<endl;
+				for(int i=0;i<n;i++){
+					cout<<1<<" ";
+				}
+				cout<<endl;
+			}
+			else{
+				if(n%2==0){
+					int num=n/2;
+					cout<<"YES"<<endl;
+					cout<<num<<endl;					
+					for(int i=0;i<num;i++){
+						cout<<2<<" ";
+					}
+					cout<<endl;
+				}
+				else{
+					if(k>=3){
+						cout<<"YES"<<endl;
+					    int num=(n-3)/2;
+					    cout<<num+1<<endl;
+					    cout<<3<<" ";
+					    for(int i=0;i<num;i++){
+						    cout<<2<<" ";
+					    }
+					    cout<<endl; 
+					}
+					else{
+						cout<<"NO"<<endl;
+					}   
+				}
+			}
+		}
 
-// Helper Functions
-bool odd(ll num) { return ((num & 1) == 1); }
-bool even(ll num) { return ((num & 1) == 0); }
-ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
-
-
-void solve() {
-        //apply code only the testcase part loop is on the int main function......
 }
 
 int main() {

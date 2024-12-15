@@ -165,17 +165,38 @@ bool even(ll num) { return ((num & 1) == 0); }
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
 
 
-void solve() {
-        //apply code only the testcase part loop is on the int main function......
+int solve()
+{
+    int n;
+    cin>>n;
+    int a[n];
+    ll sum = 0;
+    for(int i=0; i<n; i++)
+    {
+        cin>>a[i];
+        sum += a[i] == 2;
+    }
+    ll total = 0;
+    for(int i=0; i<n; i++)
+    {
+        total += a[i] == 2;
+        if(total == sum - total)
+        return i+1;
+    }
+    return -1;
 }
 
-int main() {
+int main()
+{
     ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-    precompute_factorials(); 
-    int tc = 1;
-    cin >> tc;
-    for (int t = 1; t <= tc; t++) {
-        solve();
+    cin.tie(0);
+    cout.tie(0);
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        cout<<solve()<<endl;
     }
+    return 0;
 }

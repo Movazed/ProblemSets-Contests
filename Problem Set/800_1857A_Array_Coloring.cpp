@@ -152,21 +152,36 @@ template <typename T> inline T CylinderR(T radius, T height)
 template <typename T> inline T Cone (T radius,T base, T height)
 {return (1/3)*PI*radius*radius*height;} 
 /****************** Geometry end *****************/ 
-#define len(x) int((x).size())
-#define pb push_back
-#define rall(n) n.rbegin(),n.rend()
-
-// Constants
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-// Helper Functions
-bool odd(ll num) { return ((num & 1) == 1); }
-bool even(ll num) { return ((num & 1) == 0); }
-ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
-
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        ll n;
+        cin >> n;
+
+        vector<int> array(n);
+
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> array[i];
+        }
+
+            ll odd_counts = 0;
+
+            for (ll i = 0; i < n; i++)
+            {
+                if(array[i] % 2 == 1){
+                    odd_counts++;
+                }
+            }
+
+            if(odd_counts % 2 == 0){
+                cout<<"YES"<<endl;
+            }
+            else {
+                cout << "NO" << endl;
+            }
+            
+        
 }
 
 int main() {

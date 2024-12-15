@@ -167,6 +167,30 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        ll n;
+        cin >> n;
+        ll x = 0;
+        vector<int> ar(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> ar[i];        
+        }
+
+        for (ll i = 0; i < n; i++)
+        {
+            x = ar[i] ^ x;
+        }
+        
+
+        if(x == 0){
+            cout << 0 << endl;
+        }
+        else if (n & 1){
+            cout << x << endl;
+        }
+        else{
+            cout << -1 << endl;
+        }      
 }
 
 int main() {

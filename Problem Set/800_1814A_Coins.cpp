@@ -167,6 +167,17 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        ll denomination;
+        ll k;
+        cin >> denomination >> k;
+
+        if(denomination % 2 == 0 || (denomination-k) % 2 == 0){
+            cout << "YES" <<endl;
+        }
+        else {
+            cout << "NO" <<endl;
+        }
+        
 }
 
 int main() {

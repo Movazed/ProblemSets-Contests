@@ -154,9 +154,11 @@ template <typename T> inline T Cone (T radius,T base, T height)
 /****************** Geometry end *****************/ 
 #define len(x) int((x).size())
 #define pb push_back
+
 #define rall(n) n.rbegin(),n.rend()
 
 // Constants
+
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 // Helper Functions
@@ -167,6 +169,20 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        ll n;
+        cin >> n;
+        
+        vector<int> array(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> array[i];
+        }
+            for (ll i = 0; i < n; i++)
+            {
+                cout << n + 1 - array[i] << " ";
+            }
+            cout << endl; 
+
 }
 
 int main() {

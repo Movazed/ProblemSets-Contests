@@ -167,6 +167,25 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+
+        ll n;
+        cin >> n;
+        ll count = 0;
+        ll maximum = 0;
+        vector<int> array(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> array[i];
+
+            if(array[i] == 0){
+                count++;
+                maximum = max(maximum, count);
+            } else {
+                count = 0;
+            }
+        }
+        cout << maximum <<endl;
+        
 }
 
 int main() {

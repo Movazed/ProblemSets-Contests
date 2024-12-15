@@ -166,7 +166,21 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 
 void solve() {
-        //apply code only the testcase part loop is on the int main function......
+    ll n; 
+    cin >> n;
+
+    string s;
+    cin >> s;
+
+    ll left = 0, right = n - 1;
+
+
+    while (left < right && s[left] != s[right]) {
+        left++;
+        right--;
+    }
+
+    cout << (right - left + 1) << endl;
 }
 
 int main() {
