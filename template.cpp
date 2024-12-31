@@ -14,13 +14,20 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
+#define ull unsigned long long
+#define vii vector<pair<int, int>>
+#define vpll vector<pair<long long long long>>
+#define vi vector<int>
+#define vl vector<long>
 #define ar array
+#define MP make_pair
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
 #define all(a) (a).begin(), (a).end()
-
+#define PRINT std::cout
+#define INPUT std::cin
+#define nl endl
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -28,7 +35,11 @@ const ll INF = 1e9;
 const ld EPS = 1e-9;
 const int MAX_FACT = 1e5 + 5;  // Maximum size for factorials
 int fact[MAX_FACT], ifact[MAX_FACT];
-
+#define FOR(i, a, b) for(int i = a; i < b; i++)
+#define UPDATE_COUNT_DIV(factor_count) (count_div = (count_div * ((ll)(factor_count) + 1)) % MOD)
+#define COMPARE_FACTORS(p1, p2) (m_fact[p1].first == a_fact[p2].first)
+#define IF_LESS_THAN(p1, p2) (m_fact[p1].first < a_fact[p2].first)
+#define FORR(i, a, b) for(int i = a; i >= b; i--)
 // -------------------------<RNG>------------------------- 
 // RANDOM NUMBER GENERATOR
 mt19937 RNG(chrono::steady_clock::now().time_since_epoch().count());  
@@ -41,7 +52,7 @@ mt19937 RNG(chrono::steady_clock::now().time_since_epoch().count());
 #define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
 #define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
 #define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-
+#define MAX 100005
 // '!!' to make sure this returns 0 or 1
 #define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))
 
@@ -166,13 +177,84 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 
 void solve() {
-        //apply code only the testcase part loop is on the int main function......
-        
+    // Sieve of Eratosthenes to precompute smallest prime factors (SPF)
+    vector<int> spf(MAX, 0);
+    FOR(i, 2, MAX) if(spf[i] == 0){
+        spf[i] = i;
+        for(int j = 2 * i; j < MAX; j += i) if(spf[j] == 0) spf[j] = i;
+    }
 
+    // Input values for N and M
+    int N, M;
+    cin >> N >> M;
 
+    // Factorization of M!
+    vii m_fact;
+    FOR(p, 2, M + 1) if(spf[p] == p){  // Iterate over primes <= M
+        int cnt = 0;
+        for(ll power = p; power <= M; power *= p){
+            cnt += M / power;
+            if((ll)p * power > M) break;  // Avoid overflow
+        }
+        if(cnt > 0) m_fact.pb(MP(p, cnt));
+    }
+
+    // Read the array A
+    vector<int> A(N);
+    for(auto &x : A) cin >> x;
+
+    // Process each element in array A
+    FOR(i, 0, N){
+        int x = A[i];
+        vii a_fact;
+
+        // Factorize the number x
+        if(x > 1){
+            for(int p = spf[x]; x > 1; p = spf[x]){
+                int cnt = 0;
+                while(x % p == 0){
+                    cnt++;
+                    x /= p;
+                }
+                a_fact.pb(MP(p, cnt));
+            }
+        }
+
+        // Two pointers to merge m_fact and a_fact
+        int p1 = 0, p2 = 0;
+        ll count_div = 1;
+
+        while(p1 < m_fact.size() && p2 < a_fact.size()){
+            if(COMPARE_FACTORS(p1, p2)){
+                ll total = (ll)m_fact[p1].second + a_fact[p2].second;
+                UPDATE_COUNT_DIV(total);
+                p1++;
+                p2++;
+            }
+            else if(IF_LESS_THAN(p1, p2)){
+                UPDATE_COUNT_DIV(m_fact[p1].second);
+                p1++;
+            }
+            else{
+                UPDATE_COUNT_DIV(a_fact[p2].second);
+                p2++;
+            }
+        }
+
+        // Finish processing the remaining factors with macros
+        for(; p1 < m_fact.size(); p1++){
+            UPDATE_COUNT_DIV(m_fact[p1].second);
+        }
+        for(; p2 < a_fact.size(); p2++){
+            UPDATE_COUNT_DIV(a_fact[p2].second);
+        }
+
+        // Output the result for this element of the array A
+        cout << count_div << (i < N - 1 ? " " : "\n");
+    }
 }
 
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     precompute_factorials(); 

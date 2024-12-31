@@ -14,13 +14,19 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
+#define ull unsigned long long
+#define vii vector<pair<int int>>
+#define vpll vector<pair<long long long long>>
+#define vi vector<int>
+#define vl vector<long>
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
 #define all(a) (a).begin(), (a).end()
-
+#define PRINT std::cout
+#define INPUT std::cin
+#define nl endl
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -80,7 +86,7 @@ template<typename T>T mod_inverse(T a, T n = MOD){T x,y,z=0;
                T d=extended_euclid(a,n,x,y);return(d>1?-1:mod_neg(x,z,n));} 
 
 
-
+#define COMPARE(p1, p2) ((p1).first > (p2).first)
 // Permutation and Combination
 int ncr(int n,int r,int c = MOD){ 
     return mul(mul(ifact[r],ifact[n-r],c),fact[n],c); 
@@ -165,14 +171,48 @@ bool even(ll num) { return ((num & 1) == 0); }
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
 
 
+
+
 void solve() {
-        //apply code only the testcase part loop is on the int main function......
-        
+    ll M;
+    INPUT >> M;
+    vi arr(M);  
+    int j = 0;
+    while (j < M) {
+        INPUT >> arr[j];
+        j++;
+    }
 
+    vector<pair<ll, int>> soldiers(M);  
+    j = 0;
+    while (j < M) {
+        soldiers[j] = { arr[j], j };
+        j++;
+    }
 
+    sort(soldiers.begin(), soldiers.end(), [&](const pair<ll, int> &a, const pair<ll, int> &b) -> bool {  
+        return COMPARE(a, b);  
+    });
+
+    vi ranks(M);  
+    int position = 1;
+    while (position <= M) {
+        int idx = soldiers[position - 1].second;
+        ranks[idx] = position;
+        position++;
+    }
+
+    ll count = 0;  
+    j = 0;
+    while (j < M - 1) {
+        count += (abs(ranks[j] - ranks[j + 1]) == 1) ? 1 : 0;  
+        j++;
+    }
+
+    cout << (M - count) << nl;
 }
 
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     precompute_factorials(); 

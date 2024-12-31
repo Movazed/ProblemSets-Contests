@@ -14,13 +14,20 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
+#define MAX_A 100005
+#define ull unsigned long long
+#define vii vector<pair<int int>>
+#define vpll vector<pair<long long long long>>
+#define vi vector<int>
+#define vl vector<long>
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
 #define all(a) (a).begin(), (a).end()
-
+#define PRINT std::cout
+#define INPUT std::cin
+#define nl endl
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -166,13 +173,37 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 
 void solve() {
-        //apply code only the testcase part loop is on the int main function......
-        
+    vi max_i(MAX_A, 0);
+    vi test_case_id(MAX_A, 0);
 
+    static int current_id = 0; 
+    current_id++;
 
+    ll N;
+    cin >> N;
+    vi A(N);
+    for (auto &x : A) cin >> x;
+
+    vi unique_days;
+    int i = 1;
+    while (i <= N) {
+        int day = A[i - 1];
+        (test_case_id[day] != current_id) 
+            ? (unique_days.push_back(day), test_case_id[day] = current_id, max_i[day] = i) 
+            : (max_i[day] = (i > max_i[day] ? i : max_i[day]));
+        i++;
+    }
+
+    ll total = 0;
+    ll idx = 0;
+while (idx < unique_days.size()) {
+    total += max_i[unique_days[idx]];
+    idx++;
+}
+cout << total << "\n";
 }
 
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     precompute_factorials(); 

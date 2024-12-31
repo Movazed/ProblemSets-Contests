@@ -14,13 +14,19 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
+#define ull unsigned long long
+#define vii vector<pair<int int>>
+#define vpll vector<pair<long long long long>>
+#define vi vector<int>
+#define vl vector<long>
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
 #define all(a) (a).begin(), (a).end()
-
+#define PRINT std::cout
+#define INPUT std::cin
+#define nl endl
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -167,12 +173,17 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); 
 
 void solve() {
         //apply code only the testcase part loop is on the int main function......
+        const int TOTAL_AREA = 1000;
+        ll h, l, w;
+        INPUT >> h >> l >> w;
+        ll surface_area = 2 * (h * l + l * w + w * h);
+        ll max_gifts = TOTAL_AREA / surface_area;
+        PRINT << max_gifts << nl;
+
         
-
-
 }
 
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     precompute_factorials(); 

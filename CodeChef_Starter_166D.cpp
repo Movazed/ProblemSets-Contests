@@ -14,13 +14,19 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-
+#define ull unsigned long long
+#define vii vector<pair<int int>>
+#define vpll vector<pair<long long long long>>
+#define vi vector<int>
+#define vl vector<long>
 #define ar array
 #define ll long long
 #define ld long double
 #define sza(x) ((int)x.size())
 #define all(a) (a).begin(), (a).end()
-
+#define PRINT std::cout
+#define INPUT std::cin
+#define nl endl
 #define PI 3.1415926535897932384626433832795l 
 const int MAX_N = 1e5 + 5;
 const ll MOD = 1e9 + 7;
@@ -165,14 +171,84 @@ bool even(ll num) { return ((num & 1) == 0); }
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l,r)(rng); }
 
 
-void solve() {
-        //apply code only the testcase part loop is on the int main function......
-        
+#define MARK_AS_VISITED(pos, visited) \
+    visited[pos] = true;
 
+#define POP_TWO_ELEMENTS(pq, x, y) \
+    x = pq.top(); pq.pop();         \
+    y = pq.top(); pq.pop();
 
+#define UPDATE_TOTAL_COST(x, y, total_cost) \
+    total_cost +=(long long)(x + y);
+
+#define PUSH_COMBINED_COST(pq, x, y) \
+    pq.push(x + y);
+
+// Template function for cycle processing
+template<typename Container>
+void process_cycle(ll& pos, ll& count, const Container& perm, std::vector<bool>& visited) {
+    MARK_AS_VISITED(pos, visited);
+    pos = perm[pos - 1];
+    count++;
 }
 
-int main() {
+void solve() {
+    int size;
+    std::cin >> size;
+
+    std::vector<int> perm(size);
+    int idx = 0;
+    while (idx < size) {
+        std::cin >> perm[idx];
+        idx++;
+    }
+
+    std::vector<bool> visited(size + 1, false);
+    std::vector<int> cycle_lengths;
+
+    idx = 1;
+    while (idx <= size) {
+        (!visited[idx]) ? (
+            [&]() {
+                ll count = 0;
+                ll pos = idx;
+                while (!visited[pos]) {
+                    process_cycle(pos, count, perm, visited);}
+                cycle_lengths.push_back(count);
+            })() : void(0);
+        
+        idx++;
+    }
+
+    if (cycle_lengths.size() == 1) {
+        std::cout << "0\n";
+        return;
+    }
+
+    std::priority_queue<int, std::vector<int>,std::greater<int>> pq;
+
+    idx = 0;
+    while (idx < cycle_lengths.size()) {
+        pq.push(cycle_lengths[idx]);
+        idx++;
+    }
+
+    ll total = 0;
+
+    while (pq.size() > 1) {
+        int a, b;
+
+        POP_TWO_ELEMENTS(pq, a, b);
+
+        UPDATE_TOTAL_COST(a, b, total);
+
+        PUSH_COMBINED_COST(pq, a, b);
+    }
+
+    std::cout << total << "\n";
+}
+
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     precompute_factorials(); 
